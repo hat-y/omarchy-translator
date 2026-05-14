@@ -2,7 +2,7 @@
 
 Floating translator popup for Hyprland / Omarchy.
 
-Press **SUPER+Z** — a small terminal appears. Type a word, get the translation, hear the pronunciation, ask an LLM for context. Press **Q** to close and the process dies.
+Press **SUPER+Z** — a small terminal appears. Type a word, get the translation, hear the pronunciation, practice your accent, ask an LLM for context. Press **Q** to close and the process dies.
 
 Built for quick lookups while reading, coding, or writing in another language.
 
@@ -12,32 +12,33 @@ Built for quick lookups while reading, coding, or writing in another language.
 - **Instant translation** via Google Translate
 - **IPA phonetics** when `espeak-ng` is installed
 - **Audio pronunciation** via gTTS + mpv
-- **Speech practice** — record yourself, Whisper transcribes, shows accuracy score
-- **LLM context** — ask about usage, examples, synonyms, formality (OpenAI-compatible API)
+- **Speech practice** — record yourself, Whisper transcribes locally, shows accuracy %
+- **LLM context** — ask about usage, examples, synonyms, formality (requires API key or Ollama)
 - **Floating popup** — centered, pinned, animated, disappears when you quit
 
 ## Shortcuts
 
-| Key | Action |
-|-----|--------|
-| `x` | Swap languages (EN→ES becomes ES→EN) |
-| `o` | Change source language |
-| `l` | Change target language |
-| `p` | Play pronunciation audio |
+| Key | Action                                     |
+| --- | ------------------------------------------ |
+| `x` | Swap languages (EN→ES becomes ES→EN)       |
+| `o` | Change source language                     |
+| `l` | Change target language                     |
+| `p` | Play pronunciation audio                   |
 | `s` | Practice pronunciation (record your voice) |
-| `c` | Ask LLM for context and examples |
-| `q` | Quit |
+| `c` | Ask LLM for context and examples           |
+| `q` | Quit                                       |
 
 ## Install
 
 ```bash
-git clone https://github.com/YOUR_USER/omarchy-translator.git
+git clone https://github.com/hat-y/omarchy-translator.git
 cd omarchy-translator
 chmod +x install.sh
 ./install.sh
 ```
 
 The installer will:
+
 1. Create a Python venv at `~/.local/share/translator`
 2. Install dependencies (deep-translator, gTTS, rich, faster-whisper)
 3. Copy the launcher to `~/.local/bin/omarchy-translator`
@@ -51,9 +52,16 @@ The installer will:
 sudo pacman -S espeak-ng
 ```
 
-### LLM Setup
+### LLM Context (`c` key)
 
-Edit `~/.config/translator/config.json` with your API key:
+The `c` shortcut lets you ask an LLM about the word you just translated — contexts of use, example sentences, synonyms, and formality notes.
+
+**This feature requires either:**
+
+- An **API key** from an OpenAI-compatible provider (DeepSeek, OpenRouter, OpenAI, OpenCode Go, etc.)
+- **Ollama** running locally with a model loaded (not yet implemented — contributions welcome)
+
+To set it up, edit `~/.config/translator/config.json`:
 
 ```json
 {
@@ -65,14 +73,14 @@ Edit `~/.config/translator/config.json` with your API key:
 
 Any **OpenAI-compatible API** works. Examples:
 
-| Provider | base_url | model |
-|----------|----------|-------|
-| OpenCode Go | `https://opencode.ai/zen/go/v1` | `kimi-k2.5` |
-| DeepSeek | `https://api.deepseek.com` | `deepseek-chat` |
-| OpenRouter | `https://openrouter.ai/api/v1` | `deepseek/deepseek-chat` |
-| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` |
+| Provider    | base_url                        | model                    |
+| ----------- | ------------------------------- | ------------------------ |
+| OpenCode Go | `https://opencode.ai/zen/go/v1` | `kimi-k2.5`              |
+| DeepSeek    | `https://api.deepseek.com`      | `deepseek-chat`          |
+| OpenRouter  | `https://openrouter.ai/api/v1`  | `deepseek/deepseek-chat` |
+| OpenAI      | `https://api.openai.com/v1`     | `gpt-4o-mini`            |
 
-Once configured, press `c` after any translation to get context, examples, synonyms, and formality notes.
+If no API key is configured, the `c` option simply won't appear in the shortcuts bar.
 
 ## How It Works
 
