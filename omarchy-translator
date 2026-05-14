@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Omarchy Translator — floating popup triggered by SUPER+Z
+# Launches Alacritty as a small floating terminal running the translator TUI
+
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+TRANSLATOR_VENV="$HOME/.local/share/translator"
+TRANSLATOR_PY="$TRANSLATOR_VENV/bin/python"
+
+if [[ ! -x "$TRANSLATOR_PY" ]]; then
+    notify-send "Translator" "Python venv not found. Run: python3 -m venv ~/.local/share/translator && ~/.local/share/translator/bin/pip install deep-translator gTTS rich"
+    exit 1
+fi
+
+exec uwsm-app -- alacritty \
+    --class=com.alacritty.translator \
+    --title=Translator \
+    -o window.dimensions.columns=72 \
+    -o window.dimensions.lines=24 \
+    -o window.padding.x=12 \
+    -o window.padding.y=10 \
+    -e "$TRANSLATOR_PY" /home/hat/.local/share/translator/translator_tui.py
