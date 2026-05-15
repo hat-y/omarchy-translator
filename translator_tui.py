@@ -54,13 +54,10 @@ def ask_llm(word: str, translation: str, src: str, tgt: str) -> str:
     src_name = LANGUAGES.get(src, src)
     tgt_name = LANGUAGES.get(tgt, tgt)
 
-    system = "Respondé en español. Sé breve y directo. No uses markdown."
+    system = "Sos un asistente de idiomas. Respondé en español. Máximo 5 líneas. Sin markdown. Sin numeración."
     user = (
-        f'La palabra/frase "{word}" ({src_name}) se traduce como "{translation}" ({tgt_name}).\n\n'
-        f'1. En qué contextos se usa "{translation}" en {tgt_name}?\n'
-        f"2. Da 2-3 frases de ejemplo cortas en {tgt_name} con traducción.\n"
-        f"3. Hay algún sinónimo común en {tgt_name}?\n"
-        f"4. Alguna nota sobre uso formal/informal?"
+        f'"{word}" ({src_name}) → "{translation}" ({tgt_name}).\n'
+        f"Contextos de uso, 2 ejemplos cortos con traducción, sinónimo y si es formal/informal."
     )
 
     body = json.dumps({
@@ -69,7 +66,7 @@ def ask_llm(word: str, translation: str, src: str, tgt: str) -> str:
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
-        "max_tokens": 600,
+        "max_tokens": 300,
         "temperature": 0.3,
     }).encode()
 

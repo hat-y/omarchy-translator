@@ -46,10 +46,10 @@ HYPRLAND="${HOME}/.config/hypr/hyprland.lua"
 if [ -f "$HYPRLAND" ] && ! grep -q "com.alacritty.translator" "$HYPRLAND"; then
 	# Insert before the last line
 	sed -i '/^-- Add any other personal/i\
--- Translator popup: small floating centered window.\
+-- Translator popup: small floating window on the right.\
 hl.window_rule({ match = { class = "com.alacritty.translator" }, float = true })\
-hl.window_rule({ match = { class = "com.alacritty.translator" }, center = true })\
-hl.window_rule({ match = { class = "com.alacritty.translator" }, size = "72ch 24ch" })\
+hl.window_rule({ match = { class = "com.alacritty.translator" }, size = "58ch 20ch" })\
+hl.window_rule({ match = { class = "com.alacritty.translator" }, move = "100% 50%" })\
 hl.window_rule({ match = { class = "com.alacritty.translator" }, pin = true })\
 hl.window_rule({ match = { class = "com.alacritty.translator" }, animation = "popin 80" })\
 ' "$HYPRLAND"

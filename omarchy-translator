@@ -14,8 +14,8 @@ fi
 exec uwsm-app -- alacritty \
     --class=com.alacritty.translator \
     --title=Translator \
-    -o window.dimensions.columns=72 \
-    -o window.dimensions.lines=24 \
-    -o window.padding.x=12 \
-    -o window.padding.y=10 \
+    -o window.dimensions.columns=58 \
+    -o window.dimensions.lines=20 \
+    -o window.padding.x=10 \
+    -o window.padding.y=8 \
     -e "$TRANSLATOR_PY" /home/hat/.local/share/translator/translator_tui.py
