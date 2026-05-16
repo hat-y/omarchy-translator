@@ -28,6 +28,8 @@ Built for quick lookups while reading, coding, or writing in another language.
 | `c` | Ask LLM for context and examples           |
 | `q` | Quit                                       |
 
+Shortcuts are shown in a bar just above the input prompt.
+
 ## Install
 
 ```bash
@@ -44,6 +46,8 @@ The installer will:
 3. Copy the launcher to `~/.local/bin/omarchy-translator`
 4. Add SUPER+Z keybinding to Hyprland
 5. Add window rules for the floating popup
+
+The launcher runs the script directly from the cloned repo, so future updates only need a `git pull`.
 
 ### Optional
 
@@ -85,8 +89,8 @@ If no API key is configured, the `c` option simply won't appear in the shortcuts
 ## How It Works
 
 - **SUPER+Z** launches Alacritty with a custom class (`com.alacritty.translator`)
-- Hyprland window rules catch that class and make it float, centered, pinned
-- The Python TUI handles translation, audio, speech recognition, and LLM queries
+- Hyprland window rules catch that class and make it float at the bottom-left corner, pinned
+- The Python TUI uses a **bottom-input layout**: history scrolls FIFO above, shortcuts bar + separator sit just above the input prompt
 - Pressing `q` or Ctrl+C kills the process and the window disappears
 
 ## Requirements
